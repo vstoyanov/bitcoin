@@ -660,21 +660,21 @@ static void TorControlThread(CService onion_service_target)
 
 bool TorControlOptCheck(bilingual_str& error)
 {
-    NetworkAddrError eOpt = HasValidHostPort(gArgs.GetArg("-torcontrol", DEFAULT_TOR_CONTROL));
-    switch (eOpt) {
-        case NetworkAddrError::OK:
-            error = Untranslated("No error");
-            return true;
-        case NetworkAddrError::NO_HOST:
-            error = Untranslated("No hostname specified in -torcontrol");
-            return false;
-        case NetworkAddrError::NO_PORT:
-            error = Untranslated("No port specified in -torcontrol");
-            return false;
-        case NetworkAddrError::NO_HOSTPORT:
-            error = Untranslated("No hostname:port specified in torcontrol");
-            return false;
-        // no default case, so the compiler can warn about missing cases
+    NetworkAddrError e_opt = HasValidHostPort(gArgs.GetArg("-torcontrol", DEFAULT_TOR_CONTROL));
+    switch (e_opt) {
+    case NetworkAddrError::OK:
+        error = Untranslated("No error");
+        return true;
+    case NetworkAddrError::NO_HOST:
+        error = Untranslated("No hostname specified in -torcontrol");
+        return false;
+    case NetworkAddrError::NO_PORT:
+        error = Untranslated("No port specified in -torcontrol");
+        return false;
+    case NetworkAddrError::NO_HOSTPORT:
+        error = Untranslated("No hostname:port specified in -torcontrol");
+        return false;
+    // no default case, so the compiler can warn about missing cases
     }
     assert(false);
 }
